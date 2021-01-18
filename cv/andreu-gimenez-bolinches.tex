@@ -1,0 +1,93 @@
+\documentclass[]{infinity-cv}
+\usepackage[utf8]{inputenc} % Allows the use of emojis and other unicode characters
+\usepackage{qrcode} % Allows inserting a QR code
+\usepackage{graphicx} % Allows inserting images
+\usepackage{lipsum}
+
+% Configuration ---------------------------------------------------------------
+\newcommand{\n}{\linebreak}
+%% Data path
+% Change this in case of having a different data structure
+\newcommand{\datapath}{data}
+\graphicspath{{\datapath/images/}} % Path to the images folder
+
+%% Language
+% If one has multilingual data, one can modify the value of the language in 
+% order to use the same layout for two different languages
+\renewcommand{\cvlang}{en}
+
+%% Colours
+% Colour for the headings
+\definecolor{Heading}{HTML}{002880}
+% Colour for bullet points and other icons
+\definecolor{Accent}{HTML}{2c6e65}
+% Colour for Company names and other emphasis
+\definecolor{Emphasis}{HTML}{203445}
+% Colour for the overall text
+\definecolor{Body}{HTML}{1e2830}
+
+\colorlet{heading}{Heading}
+\colorlet{accent}{Accent}
+\colorlet{emphasis}{Emphasis}
+\colorlet{body}{Body}
+\AtBeginDocument{\color{body}}
+
+% Data ------------------------------------------------------------------------
+% Here we load our csv files in order to use them with \makecvskills and other
+% commands
+% Load Skills
+\DTLloaddb{skills}{\datapath/skills.csv}
+\DTLsort{order=ascending}{skills}
+% Load Contact
+\DTLloaddb{contact}{\datapath/contact.csv}
+% Load Body
+\DTLloaddb{body}{\datapath/body.csv}
+% Load Experience
+\DTLloaddb{experience}{\datapath/experience.csv}
+\DTLsort{endYear=descending,endMonth=descending}{experience}
+
+% Document --------------------------------------------------------------------
+\begin{document}
+% First page ------------------------------------------------------------------
+% Top contact
+\hypersetup{
+    hidelinks,%
+    pdfnewwindow%
+} % Hide the links in the contact section
+\begin{minipage}{0.15\textwidth} % Make a column
+    \includegraphics[width=\textwidth]{profile.jpg}
+\end{minipage}
+\pdfcomment{%
+    Hello traveler, if you are able to read this then you are also able to
+    read the different annotations and clarification written for skills and
+    qualifications. Hover next to what you are interested about and you might 
+    find an annotation. You can try with the English language for example.
+    You might also find hyperlinks that are related to a certain skill or
+    qualification. Try with the Python skill.
+}%
+\hfill
+\begin{minipage}{0.6\textwidth}
+    \cvname{Andreu Gimenez Bolinches}
+
+    \medskip
+    \makecvcontact{contact}
+\end{minipage}
+\begin{minipage}{0.15\textwidth}
+    \qrcode[height=\textwidth]{https://raw.githubusercontent.com/esdandreu/esdandreu/main/cv/andreu-gimenez-bolinches.pdf}
+\end{minipage}
+
+% Sidebar
+\begin{minipage}{0.3\textwidth} % Adjust the size of the sidebar with the
+                                % multiplier of \textwidth
+    \makecvskills{skills}
+\end{minipage}
+\hfill
+% Main
+\begin{minipage}{0.65\textwidth}
+    \makecvbody{body}
+    \makecvexperience{experience}
+\end{minipage}
+\clearpage
+% Second page -----------------------------------------------------------------
+\section{Timeline}
+\end{document} 
